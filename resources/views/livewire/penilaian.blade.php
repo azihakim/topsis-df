@@ -20,27 +20,27 @@
 		</div>
 		<div class="x_content">
 			<div class="form-group row">
-				<label class="control-label col-md-2 col-sm-2 ">Pilih Pelanggan</label>
+				{{-- <label class="control-label col-md-2 col-sm-2 ">Pilih Pelanggan</label>
 				<div wire:ignore>
 					<select class="form-control" id="select2">
 						<option value="">Pilih Pelanggan</option>
 						<option value="1">Pelanggan 1</option>
 						<option value="2">Pelanggan 2</option>
 						<option value="3">Pelanggan 3</option>
-						{{-- @foreach ($series as $item)
+						@foreach ($series as $item)
 							<option value="{{ $item }}">{{ $item }}</option>
-						@endforeach --}}
+						@endforeach
 					</select>
-				</div>
+				</div> --}}
 
-				{{-- <div class="col-md-6 col-sm-6 ">
+				<div class="col-md-6 col-sm-6 ">
 					<select class="form-control" wire:model="selectedPelanggan">
 						<option>Pilih Pelanggan</option>
 						@foreach ($pelanggans as $item)
 							<option value="{{ $item->id }}">{{ $item->nama }}</option>
 						@endforeach
 					</select>
-				</div> --}}
+				</div>
 				<div class="col-md-4 col-sm-4">
 					<button type="submit" class="btn btn-success" wire:click="tambahPelanggan">Tambah Pelanggan</button>
 				</div>
