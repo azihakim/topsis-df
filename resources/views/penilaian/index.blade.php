@@ -36,15 +36,13 @@
 								width="100%">
 								<thead>
 									<tr>
-										<th>Divisi</th>
 										<th>Tanggal Penilaian</th>
 										<th style="width: 20%">Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($data as $item)
+									{{-- @foreach ($data as $item)
 										<tr>
-											<td>{{ $item->divisi }}</td>
 											<td>{{ $item->tgl_penilaian }}</td>
 											<td>
 												<a href="{{ route('penilaian.show', [$item->divisi, $item->tgl_penilaian]) }}"
@@ -57,7 +55,7 @@
 												</form>
 											</td>
 										</tr>
-									@endforeach
+									@endforeach --}}
 
 								</tbody>
 							</table>

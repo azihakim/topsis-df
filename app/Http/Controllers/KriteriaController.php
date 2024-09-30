@@ -33,13 +33,15 @@ class KriteriaController extends Controller
         // Validasi data yang diterima dari form
         $request->validate([
             'nama' => 'required|string|max:255',
-            'kode' => 'required', // Bobot harus numerik dan maksimum 100
+            'kode' => 'required',
+            'bobot' => 'required',
         ]);
 
         // Simpan data kriteria
         Kriteria::create([
             'nama' => $request->nama,
             'kode' => $request->kode,
+            'bobot' => $request->bobot,
         ]);
 
         // Redirect atau tampilkan pesan sukses jika berhasil disimpan
@@ -72,6 +74,7 @@ class KriteriaController extends Controller
         $data = Kriteria::find($id);
         $data->nama = $request->nama;
         $data->kode = $request->kode;
+        $data->bobot = $request->bobot;
         $data->save();
         return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil diubah');
     }

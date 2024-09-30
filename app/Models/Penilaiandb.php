@@ -11,9 +11,8 @@ class Penilaiandb extends Model
 
     protected $table = 'penilaians';
     protected $fillable = [
-        'karyawan_id',
+        'pelanggan_id',
         'tgl_penilaian',
-        'divisi',
         'peringkat',
         'nilai',
     ];
@@ -21,8 +20,8 @@ class Penilaiandb extends Model
         'data' => 'array',
     ];
 
-    public function karyawans()
+    public function pelanggans()
     {
-        return $this->belongsTo(Karyawan::class, 'karyawan_id');
+        return $this->belongsTo(Pelanggan::class, 'pelanggan_id');
     }
 }

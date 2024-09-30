@@ -7,8 +7,7 @@
 		</div>
 	@endif
 
-	<div class="col-2"></div>
-	<div class="col-8">
+	<div class="col-12">
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Form Tambah Kriteria</h2>
@@ -27,15 +26,20 @@
 					class="form-label-left input_mask">
 					@csrf
 					<div class="form-group row">
-						<div class="col-md-6 col-sm-6 form-group has-feedback">
+						<div class="col-sm-4 form-group has-feedback">
 							<input required name="nama" type="text" class="form-control has-feedback-left" id="inputSuccess2"
 								placeholder="Masukkan Nama Kriteria">
 							<span class="fa fa-bar-chart form-control-feedback left" aria-hidden="true"></span>
 						</div>
 
-						<div class="col-md-6 col-sm-6 form-group has-feedback">
+						<div class="col-sm-4 form-group has-feedback">
 							<input required name="kode" type="text" class="form-control has-feedback-left" id="inputSuccess2"
 								placeholder="Masukkan Kode Kriteria">
+							<span class="fa fa-bar-chart form-control-feedback left" aria-hidden="true"></span>
+						</div>
+						<div class="col-sm-4 form-group has-feedback">
+							<input required name="bobot" type="text" class="form-control has-feedback-left" id="inputSuccess2"
+								placeholder="Masukkan Bobot Kriteria">
 							<span class="fa fa-bar-chart form-control-feedback left" aria-hidden="true"></span>
 						</div>
 					</div>
@@ -50,7 +54,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-2"></div>
 @endsection
 @section('scripts')
 	<script>

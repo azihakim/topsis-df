@@ -12,6 +12,7 @@ class Kriteria extends Model
     protected $fillable = [
         'nama',
         'kode',
+        'bobot'
     ];
 
     public function subKriterias()

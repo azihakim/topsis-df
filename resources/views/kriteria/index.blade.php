@@ -38,6 +38,7 @@
 									<tr>
 										<th>Kode</th>
 										<th>Nama</th>
+										<th>Bobot</th>
 										<th style="width: 20%">Aksi</th>
 									</tr>
 								</thead>
@@ -46,6 +47,7 @@
 										<tr>
 											<td>{{ $item->kode }}</td>
 											<td>{{ $item->nama }}</td>
+											<td>{{ $item->bobot }}</td>
 											<td style="text-align: center">
 												<div class="col-md-6">
 													<a href="{{ route('kriteria.edit', $item->id) }}" class="btn-hover">

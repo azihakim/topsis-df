@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('penilaians', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('karyawan_id');
-            $table->foreign('karyawan_id')->references('id')->on('karyawans');
+            $table->unsignedBigInteger('pelanggan_id');
+            $table->foreign('pelanggan_id')->references('id')->on('pelanggans');
             $table->string('tgl_penilaian');
-            $table->string('divisi');
             $table->integer('peringkat');
             $table->float('nilai');
 

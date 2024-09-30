@@ -1,37 +1,19 @@
 <div class="col-sm-12">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2>Penilaian <small>Fuzzy AHP</small></h2>
-			<ul class="nav navbar-right panel_toolbox">
-				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
-							class="fa fa-wrench"></i></a>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Settings 1</a>
-						<a class="dropdown-item" href="#">Settings 2</a>
-					</div>
-				</li>
-				<li><a class="close-link"><i class="fa fa-close"></i></a>
-				</li>
-			</ul>
+			<h2>Penilaian</h2>
 			<div class="clearfix"></div>
 		</div>
 		<div class="x_content">
+
+			@if (session()->has('message'))
+				<div wire:ignore.self>
+					<div class="alert alert-danger" id="flash-message">
+						{{ session('message') }}
+					</div>
+				</div>
+			@endif
 			<div class="form-group row">
-				{{-- <label class="control-label col-md-2 col-sm-2 ">Pilih Pelanggan</label>
-				<div wire:ignore>
-					<select class="form-control" id="select2">
-						<option value="">Pilih Pelanggan</option>
-						<option value="1">Pelanggan 1</option>
-						<option value="2">Pelanggan 2</option>
-						<option value="3">Pelanggan 3</option>
-						@foreach ($series as $item)
-							<option value="{{ $item }}">{{ $item }}</option>
-						@endforeach
-					</select>
-				</div> --}}
 
 				<div class="col-md-6 col-sm-6 ">
 					<select class="form-control" wire:model="selectedPelanggan">
@@ -68,7 +50,16 @@
 						</div>
 						<div class="ln_solid"></div>
 					@endforeach
+					<div class="ln_solid"></div>
+					<div class="form-group row">
+						<div class="col-sm-12">
+							{{-- <button class="btn btn-primary" wire:click="generatePDF">Cancel</button> --}}
+							<button wire:click="storeData" class="btn btn-success">Simpan</button>
+						</div>
+					</div>
 				</div>
+			@else
+				<div class="alert alert-warning">Tidak ada pelanggan yang dipilih.</div>
 			@endif
 		</div>
 	</div>
@@ -77,12 +68,15 @@
 </div>
 @push('scripts')
 	<script>
-		$(document).ready(function() {
-			$('#select2').select2();
-			$('#select2').on('change', function(e) {
-				var data = $('#select2').select2("val");
-				@this.set('selected', data);
-			});
+		document.addEventListener('DOMContentLoaded', function() {
+			// Ambil elemen flash message
+			var flashMessage = document.getElementById('flash-message');
+			if (flashMessage) {
+				// Set timeout untuk menghilangkan pesan setelah 3 detik
+				setTimeout(function() {
+					flashMessage.style.display = 'none';
+				}, 1000); // 3000 ms = 3 detik
+			}
 		});
 	</script>
 @endpush
