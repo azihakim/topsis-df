@@ -45,7 +45,7 @@
 										<tr>
 											<td>{{ $item->tgl_penilaian }}</td>
 											<td>
-												<a href="{{ route('pdf', $item->id) }}" class="btn btn-block btn-outline-primary">Lihat
+												<a href="{{ route('pdf', $item->id) }}" target="blank" class="btn btn-block btn-outline-primary">Lihat
 													PDF</a>
 											</td>
 										</tr>

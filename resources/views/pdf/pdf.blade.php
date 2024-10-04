@@ -227,6 +227,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th>Ranking</th>
 				<th>Nama Pelanggan</th>
 				<th>Nilai Preferensi</th>
 			</tr>
@@ -234,12 +235,14 @@
 		<tbody>
 			@foreach ($data['nilaiPreferensiDenganNama'] as $preferensi)
 				<tr>
+					<td style="text-align: center">{{ $preferensi['ranking'] ?? 'N/A' }}</td>
 					<td>{{ $preferensi['nama_pelanggan'] ?? 'N/A' }}</td>
-					<td>{{ $preferensi['nilai_preferensi'] ?? 'N/A' }}</td>
+					<td style="text-align: center">{{ number_format($preferensi['nilai_preferensi'], 4) ?? 'N/A' }}</td>
 				</tr>
 			@endforeach
 		</tbody>
 	</table>
+
 </body>
 
 </html>
