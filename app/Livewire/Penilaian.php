@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Kriteria;
 use App\Models\Pelanggan;
+use App\Models\Penilaiandb;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Log;
@@ -112,7 +113,227 @@ class Penilaian extends Component
         return $penilaianData;
     }
 
+    public function dataHasil()
+    {
+        $penilaianData = $this->getPenialaianList();
+        $pembagi = $this->calculatePembagi($penilaianData, count($this->kriteriaPenilaian));
+        $matriksTernormalisasi = $this->calculateMatriksTernormalisasi($penilaianData, $pembagi);
+        $matriksTerbobot = $this->calculateMatriksTerbobot($matriksTernormalisasi, $this->bobot);
+        $solusiIdealPositif = $this->calculateSolusiIdealPositif($matriksTerbobot, $this->kriteriaTypes);
+        $solusiIdealNegatif = $this->calculateSolusiIdealNegatif($matriksTerbobot, $this->kriteriaTypes);
+        $calculateJarakSolusi = $this->calculateJarakSolusi($matriksTerbobot, $solusiIdealPositif, $solusiIdealNegatif);
+        $nilaiPreferensi = $this->calculatePreferensi($calculateJarakSolusi);
 
+        $nilaiPreferensiDenganNama = [];
+        foreach ($nilaiPreferensi as $pelangganId => $nilai) {
+            $pelanggan = Pelanggan::find($pelangganId); // Ambil data pelanggan dari model
+            $nilaiPreferensiDenganNama[] = [
+                'nama_pelanggan' => $pelanggan->nama ?? 'Tidak Diketahui',
+                'nilai_preferensi' => $nilai
+            ];
+        }
+
+        foreach ($penilaianData as $key => $data) {
+            // Query untuk mendapatkan data pelanggan berdasarkan pelanggan_id
+            $pelanggan = Pelanggan::find($data['pelanggan_id']);
+
+            // Tambahkan data pelanggan ke array
+            if ($pelanggan) {
+                $penilaianData[$key]['pelanggan_nama'] = $pelanggan->nama;
+            }
+        }
+
+        // Loop melalui penilaianData untuk menambahkan kode kriteria
+        foreach ($penilaianData as &$pelangganData) {
+            foreach ($pelangganData['kriteria'] as $kriteria_id => &$kriteriaData) {
+                // Query untuk mendapatkan kode kriteria berdasarkan kriteria_id
+                $kriteria = Kriteria::find($kriteriaData['kriteria_id']);
+
+                // Jika kriteria ditemukan, tambahkan kode_kriteria ke dalam array
+                if ($kriteria) {
+                    $kriteriaData['kode_kriteria'] = $kriteria->kode;
+                }
+            }
+        }
+
+        // Loop melalui array pembagi dan tambahkan kode kriteria
+        foreach ($pembagi as $kriteria_id => $nilai_pembagi) {
+            // Query untuk mendapatkan kode kriteria berdasarkan kriteria_id
+            $kriteria = Kriteria::find($kriteria_id);
+
+            // Tambahkan kode kriteria ke array jika kriteria ditemukan
+            if ($kriteria) {
+                $pembagi[$kriteria_id] = [
+                    'nilai_pembagi' => $nilai_pembagi,
+                    'kode_kriteria' => $kriteria->kode,
+                ];
+            }
+        }
+
+        // Loop melalui array matriksTernormalisasi dan tambahkan nama pelanggan serta kode kriteria
+        foreach ($matriksTernormalisasi as $pelanggan_key => $data) {
+            // Query untuk mendapatkan nama pelanggan berdasarkan pelanggan_id
+            $pelanggan = Pelanggan::find($data['pelanggan_id']);
+
+            // Tambahkan nama pelanggan jika ditemukan
+            if ($pelanggan) {
+                $matriksTernormalisasi[$pelanggan_key]['nama_pelanggan'] = $pelanggan->nama;
+            }
+
+            // Loop melalui kriteria untuk mendapatkan kode kriteria
+            foreach ($data['kriteria'] as $kriteria_key => $kriteria_data) {
+                $kriteria = Kriteria::find($kriteria_data['kriteria_id']);
+
+                // Tambahkan kode kriteria jika ditemukan
+                if ($kriteria) {
+                    $matriksTernormalisasi[$pelanggan_key]['kriteria'][$kriteria_key]['kode_kriteria'] = $kriteria->kode;
+                }
+            }
+        }
+
+        // Loop melalui array matriksTerbobot dan tambahkan nama pelanggan serta kode kriteria
+        foreach ($matriksTerbobot as $pelanggan_key => $data) {
+            // Query untuk mendapatkan nama pelanggan berdasarkan pelanggan_id
+            $pelanggan = Pelanggan::find($data['pelanggan_id']);
+
+            // Tambahkan nama pelanggan jika ditemukan
+            if ($pelanggan) {
+                $matriksTerbobot[$pelanggan_key]['nama_pelanggan'] = $pelanggan->nama;
+            }
+
+            // Loop melalui kriteria untuk mendapatkan kode kriteria
+            foreach ($data['kriteria'] as $kriteria_key => $kriteria_data) {
+                $kriteria = Kriteria::find($kriteria_data['kriteria_id']);
+
+                // Tambahkan kode kriteria jika ditemukan
+                if ($kriteria) {
+                    $matriksTerbobot[$pelanggan_key]['kriteria'][$kriteria_key]['kode_kriteria'] = $kriteria->kode;
+                }
+            }
+        }
+
+        // Loop melalui solusiIdealPositif dan tambahkan kode kriteria
+        foreach ($solusiIdealPositif as $kriteria_id => $nilai) {
+            // Query untuk mendapatkan kode kriteria berdasarkan kriteria_id
+            $kriteria = Kriteria::find($kriteria_id);
+
+            // Tambahkan kode kriteria ke dalam array jika ditemukan
+            if ($kriteria) {
+                $solusiIdealPositif[$kriteria_id] = [
+                    'nilai' => $nilai,
+                    'kode_kriteria' => $kriteria->kode
+                ];
+            }
+        }
+
+        // Loop melalui solusiIdealNegatif dan tambahkan kode kriteria
+        foreach ($solusiIdealNegatif as $kriteria_id => $nilai) {
+            // Query untuk mendapatkan kode kriteria berdasarkan kriteria_id
+            $kriteria = Kriteria::find($kriteria_id);
+
+            // Tambahkan kode kriteria ke dalam array jika ditemukan
+            if ($kriteria) {
+                $solusiIdealNegatif[$kriteria_id] = [
+                    'nilai' => $nilai,
+                    'kode_kriteria' => $kriteria->kode
+                ];
+            }
+        }
+
+        // Loop melalui calculateJarakSolusi dan tambahkan nama pelanggan
+        foreach ($calculateJarakSolusi as $pelanggan_id => $jarak) {
+            // Query untuk mendapatkan nama pelanggan berdasarkan pelanggan_id
+            $pelanggan = Pelanggan::find($pelanggan_id);
+
+            // Tambahkan nama pelanggan ke dalam array jika ditemukan
+            if ($pelanggan) {
+                $calculateJarakSolusi[$pelanggan_id]['nama_pelanggan'] = $pelanggan->nama;
+            }
+        }
+
+        // Sortir array berdasarkan nilai_preferensi dalam urutan menurun
+        usort($nilaiPreferensiDenganNama, function ($a, $b) {
+            return $b['nilai_preferensi'] <=> $a['nilai_preferensi'];
+        });
+
+        // Tambahkan ranking
+        foreach ($nilaiPreferensiDenganNama as $index => &$item) {
+            $item['ranking'] = $index + 1; // Ranking dimulai dari 1
+        }
+
+        // Ensure UTF-8 encoding for all strings in arrays
+        array_walk_recursive($penilaianData, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+        array_walk_recursive($pembagi, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+        array_walk_recursive($matriksTernormalisasi, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+        array_walk_recursive($matriksTerbobot, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+        array_walk_recursive($solusiIdealPositif, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+        array_walk_recursive($solusiIdealNegatif, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+        array_walk_recursive($calculateJarakSolusi, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+        array_walk_recursive($nilaiPreferensiDenganNama, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = mb_convert_encoding($item, 'UTF-8');
+            }
+        });
+
+        return [
+            'penilaianData' => $penilaianData,
+            'pembagi' => $pembagi,
+            'matriksTernormalisasi' => $matriksTernormalisasi,
+            'matriksTerbobot' => $matriksTerbobot,
+            'solusiIdealPositif' => $solusiIdealPositif,
+            'solusiIdealNegatif' => $solusiIdealNegatif,
+            'calculateJarakSolusi' => $calculateJarakSolusi,
+            'nilaiPreferensiDenganNama' => $nilaiPreferensiDenganNama,
+        ];
+    }
+
+    public function testing()
+    {
+        $dataHasil = $this->dataHasil();
+
+        // Save all calculation data to the database in one column
+        Penilaiandb::create([
+            'data_penilaian' => json_encode([
+                'penilaianData' => $dataHasil['penilaianData'],
+                'pembagi' => $dataHasil['pembagi'],
+                'matriksTernormalisasi' => $dataHasil['matriksTernormalisasi'],
+                'matriksTerbobot' => $dataHasil['matriksTerbobot'],
+                'solusiIdealPositif' => $dataHasil['solusiIdealPositif'],
+                'solusiIdealNegatif' => $dataHasil['solusiIdealNegatif'],
+                'calculateJarakSolusi' => $dataHasil['calculateJarakSolusi'],
+                'nilaiPreferensiDenganNama' => $dataHasil['nilaiPreferensiDenganNama'],
+            ]),
+            'tgl_penilaian' => now(),
+        ]);
+    }
 
     public function generatePDF()
     {
@@ -126,18 +347,27 @@ class Penilaian extends Component
             $calculateJarakSolusi = $this->calculateJarakSolusi($matriksTerbobot, $solusiIdealPositif, $solusiIdealNegatif);
             $nilaiPreferensi = $this->calculatePreferensi($calculateJarakSolusi);
 
+            $nilaiPreferensiDenganNama = [];
+            foreach ($nilaiPreferensi as $pelangganId => $nilai) {
+                $pelanggan = Pelanggan::find($pelangganId); // Ambil data pelanggan dari model
+                $nilaiPreferensiDenganNama[] = [
+                    'nama_pelanggan' => $pelanggan->nama ?? 'Tidak Diketahui',
+                    'nilai_preferensi' => $nilai
+                ];
+            }
+            // dd($nilaiPreferensiDenganNama);
             // Mengurutkan nilai preferensi dari yang terbesar ke terkecil
             arsort($nilaiPreferensi);
 
             // Menambahkan key ranking berdasarkan urutan nilai preferensi
-            $ranking = 1;
-            foreach ($nilaiPreferensi as $pelanggan_id => $nilai) {
-                $nilaiPreferensi[$pelanggan_id] = [
-                    'nilai' => $nilai,
-                    'ranking' => $ranking++
-                ];
-            }
-            Log::info($nilaiPreferensi);
+            // $ranking = 1;
+            // foreach ($nilaiPreferensi as $pelanggan_id => $nilai) {
+            //     $nilaiPreferensi[$pelanggan_id] = [
+            //         'nilai' => $nilai,
+            //         'ranking' => $ranking++
+            //     ];
+            // }
+
             // Ensure UTF-8 encoding for all strings in arrays
             array_walk_recursive($penilaianData, function (&$item, $key) {
                 if (is_string($item)) {
@@ -174,19 +404,25 @@ class Penilaian extends Component
                     $item = mb_convert_encoding($item, 'UTF-8');
                 }
             });
-            array_walk_recursive($nilaiPreferensi, function (&$item, $key) {
+            array_walk_recursive($nilaiPreferensiDenganNama, function (&$item, $key) {
                 if (is_string($item)) {
                     $item = mb_convert_encoding($item, 'UTF-8');
                 }
             });
 
-            $content = Pdf::loadView('pdf.pdf', compact('penilaianData', 'pembagi', 'matriksTernormalisasi', 'matriksTerbobot', 'solusiIdealPositif', 'solusiIdealNegatif', 'calculateJarakSolusi', 'nilaiPreferensi'))
+            $content = Pdf::loadView('pdf.pdf', compact('penilaianData', 'pembagi', 'matriksTernormalisasi', 'matriksTerbobot', 'solusiIdealPositif', 'solusiIdealNegatif', 'calculateJarakSolusi', 'nilaiPreferensiDenganNama'))
                 ->setPaper('a4', 'landscape'); // Set the paper orientation to landscape
 
-            // Save the PDF to storage
-            // $filePath = storage_path('app/public/Hasil_Penilaian.pdf');
-            // $content->save($filePath);
+            // $content->stream('Hasil_Penilaian_' . now()->format('Ymd_His') . '.pdf');
 
+            // Save the PDF to storage
+            $fileName = 'Hasil_Penilaian_' . now()->format('Ymd_His') . '.pdf';
+            $filePath = storage_path('app/public/' . $fileName);
+            $content->save($filePath);
+            Penilaiandb::create([
+                'tgl_penilaian' => now(),
+                'penilaian' => $fileName,
+            ]);
             session()->flash('message', 'PDF berhasil disimpan di storage.');
         } catch (\Exception $e) {
             Log::error('Error generating PDF: ' . $e->getMessage());
@@ -197,8 +433,8 @@ class Penilaian extends Component
 
     public function storeData()
     {
-
         $this->generatePDF();
+        return redirect()->route('penilaian.index');
     }
 
     function calculatePembagi($data, $jumlah_kriteria)

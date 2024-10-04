@@ -4,26 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Penilaian;
 use App\Models\Penilaiandb;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PenilaianController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function generatePdf($id)
+    {
+        // Ambil data penilaian dari database
+        $penilaian = Penilaiandb::select('data_penilaian')->find($id);
+
+        // Decode JSON menjadi array PHP
+        $data = json_decode($penilaian->data_penilaian, true);
+        // dd($data);
+        // Inisialisasi DomPDF
+        $pdf = app('dompdf.wrapper');
+
+        // Load view dengan data penilaian yang sudah di-decode
+        $pdf->loadView('pdf.pdf', compact('data'));
+
+        // Return PDF stream
+        return $pdf->stream('pdf.pdf');
+    }
+
+
     public function index()
     {
         // Mengambil semua penilaian dan mengelompokkannya berdasarkan divisi
-        $data = Penilaiandb::select('p.divisi', 'p.tgl_penilaian')
-            ->from('penilaians as p')
-            ->whereIn('p.id', function ($query) {
-                $query->select(DB::raw('MAX(id)'))
-                    ->from('penilaians')
-                    ->groupBy('divisi');
-            })
-            ->orderBy('p.divisi')
-            ->get();
+        $data = Penilaiandb::all();
 
         // dd($data);
         return view('penilaian.index', compact('data'));
@@ -35,14 +45,6 @@ class PenilaianController extends Controller
     public function create()
     {
         return view('penilaian.penilaian');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

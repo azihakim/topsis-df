@@ -11,17 +11,15 @@ class Penilaiandb extends Model
 
     protected $table = 'penilaians';
     protected $fillable = [
-        'pelanggan_id',
         'tgl_penilaian',
-        'peringkat',
-        'nilai',
+        'data_penilaian'
     ];
-    protected $casts = [
-        'data' => 'array',
-    ];
+    // protected $casts = [
+    //     'data' => 'array',
+    // ];
 
-    public function pelanggans()
-    {
-        return $this->belongsTo(Pelanggan::class, 'pelanggan_id');
-    }
+    // public function pelanggans()
+    // {
+    //     return $this->belongsTo(Pelanggan::class, 'pelanggan_id');
+    // }
 }

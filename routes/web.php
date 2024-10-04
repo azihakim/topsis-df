@@ -43,6 +43,8 @@ Route::delete('penilaian/{divisi}/{tgl_penilaian}', [PenilaianController::class,
 // });
 Route::get('/get-next-sub-kriteria/{kode_kriteria}', [SubKriteriaController::class, 'getNextSubKriteria']);
 
+Route::get('/pdf/{id}', [PenilaianController::class, 'generatePdf'])->name('pdf');
+
 require __DIR__ . '/auth.php';
 
 Route::resource('pelanggan', PelangganController::class);

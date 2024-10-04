@@ -54,7 +54,7 @@
 					<div class="form-group row">
 						<div class="col-sm-12">
 							{{-- <button class="btn btn-primary" wire:click="generatePDF">Cancel</button> --}}
-							<button wire:click="storeData" class="btn btn-success">Simpan</button>
+							<button wire:click="testing" class="btn btn-success">Simpan</button>
 						</div>
 					</div>
 				</div>

@@ -41,21 +41,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									{{-- @foreach ($data as $item)
+									@foreach ($data as $item)
 										<tr>
 											<td>{{ $item->tgl_penilaian }}</td>
 											<td>
-												<a href="{{ route('penilaian.show', [$item->divisi, $item->tgl_penilaian]) }}"
-													class="btn btn-block btn-outline-info">Cek</a>
-												<form action="{{ route('penilaian.destroy', [$item->divisi, $item->tgl_penilaian]) }}" method="POST"
-													style="display:inline;">
-													@csrf
-													@method('DELETE')
-													<button type="submit" class="btn btn-block btn-outline-danger">Hapus</button>
-												</form>
+												<a href="{{ route('pdf', $item->id) }}" class="btn btn-block btn-outline-primary">Lihat
+													PDF</a>
 											</td>
 										</tr>
-									@endforeach --}}
+									@endforeach
 
 								</tbody>
 							</table>
