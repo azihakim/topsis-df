@@ -59,10 +59,9 @@ class PenilaianController extends Controller
         return view('penilaian.show', compact('penilaian', 'divisi', 'tgl_penilaian'));
     }
 
-    public function destroy($divisi, $tgl_penilaian)
+    public function destroy($id)
     {
-        Penilaiandb::where('divisi', $divisi)
-            ->where('tgl_penilaian', $tgl_penilaian)
+        Penilaiandb::find($id)
             ->delete();
 
         return redirect()->route('penilaian.index')->with('error', 'Penilaian berhasil dihapus');

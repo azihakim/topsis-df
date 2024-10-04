@@ -333,6 +333,7 @@ class Penilaian extends Component
             ]),
             'tgl_penilaian' => now(),
         ]);
+        return redirect()->route('penilaian.index')->with('message', 'Data penilaian berhasil disimpan.');
     }
 
     public function generatePDF()

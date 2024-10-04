@@ -36,6 +36,7 @@
 								width="100%">
 								<thead>
 									<tr>
+										<th>ID</th>
 										<th>Tanggal Penilaian</th>
 										<th style="width: 20%">Aksi</th>
 									</tr>
@@ -43,10 +44,17 @@
 								<tbody>
 									@foreach ($data as $item)
 										<tr>
-											<td>{{ $item->tgl_penilaian }}</td>
+											<td style="text-align: center; width:5%">{{ $item->id }}</td>
+											<td>{{ \Carbon\Carbon::parse($item->tgl_penilaian)->format('d-m-Y') }}</td>
 											<td>
 												<a href="{{ route('pdf', $item->id) }}" target="blank" class="btn btn-block btn-outline-primary">Lihat
-													PDF</a>
+													Hasil</a>
+												<form action="{{ route('penilaian.destroy', $item->id) }}" method="POST" style="display:inline;">
+													@csrf
+													@method('DELETE')
+													<button type="submit" class="btn btn-block btn-outline-danger"
+														onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?');">Hapus</button>
+												</form>
 											</td>
 										</tr>
 									@endforeach
