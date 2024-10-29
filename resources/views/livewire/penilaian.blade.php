@@ -31,22 +31,22 @@
 				<div class="form-horizontal form-label-left">
 					<div class="ln_solid"></div>
 					@foreach ($selectedPelangganList as $item)
-						<div class="form-group row">
+						<div class="form-group">
 							<label class="control-label col-md-1 col-sm-1 col-xs-1">{{ $item['nama'] }}</label>
-							@foreach ($kriteriaPenilaian as $k)
-								<div class="col-md-2 col-sm-2 col-xs-2">
-									<span class="form-control-feedback left" aria-hidden="true">{{ $k['kode'] }}</span>
-									<select class="form-control has-feedback-left"
-										wire:model="penilaianData.{{ $item['id'] }}.{{ $k['kode'] }}">
-										<option value="">{{ $k['nama'] }}</option>
-										@foreach ($k['sub_kriterias'] as $subKriteria)
-											<option value="{{ $subKriteria['bobot'] }}">
-												{{ $subKriteria['rentang'] }}
-											</option>
-										@endforeach
-									</select>
-								</div>
-							@endforeach
+							<div class="row">
+								@foreach ($kriteriaPenilaian as $k)
+									<div class="col-sm-3">
+										<select class="form-control" wire:model="penilaianData.{{ $item['id'] }}.{{ $k['kode'] }}">
+											<option value="">{{ $k['nama'] }}</option>
+											@foreach ($k['sub_kriterias'] as $subKriteria)
+												<option value="{{ $subKriteria['bobot'] }}">
+													{{ $subKriteria['rentang'] }}
+												</option>
+											@endforeach
+										</select>
+									</div>
+								@endforeach
+							</div>
 						</div>
 						<div class="ln_solid"></div>
 					@endforeach
