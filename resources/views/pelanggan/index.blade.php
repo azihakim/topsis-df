@@ -38,6 +38,8 @@
 									<tr>
 										<th>Nama</th>
 										<th>Nomor Telepon</th>
+										<th>Alamat</th>
+										<th>Gmail</th>
 										<th style="width: 20%">Aksi</th>
 									</tr>
 								</thead>
@@ -46,6 +48,8 @@
 										<tr>
 											<td>{{ $item->nama }}</td>
 											<td>{{ $item->no_hp }}</td>
+											<td>{{ $item->alamat }}</td>
+											<td>{{ $item->email }}</td>
 											<td>
 												<a href="{{ route('pelanggan.edit', $item->id) }}" class="btn btn-warning btn-xs">Edit</a>
 												<form action="{{ route('pelanggan.destroy', $item->id) }}" method="POST" style="display: inline">

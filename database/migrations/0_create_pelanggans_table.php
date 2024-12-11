@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('no_hp');
+            $table->string('alamat')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

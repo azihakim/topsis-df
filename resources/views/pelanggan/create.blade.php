@@ -29,6 +29,16 @@
 						<span class="fa fa-phone form-control-feedback
                             right" aria-hidden="true"></span>
 					</div>
+					<div class="col-md-6 col-sm-6  form-group has-feedback">
+						<input required name="alamat" type="text" class="form-control" id="inputSuccess3" placeholder="Alamat">
+						<span class="fa fa-street form-control-feedback
+                            right" aria-hidden="true"></span>
+					</div>
+					<div class="col-md-6 col-sm-6  form-group has-feedback">
+						<input required name="email" type="email" class="form-control" id="inputSuccess3" placeholder="Email">
+						<span class="fa fa-street form-control-feedback
+                            right" aria-hidden="true"></span>
+					</div>
 
 					{{-- <div class="col-md-6 col-sm-6  form-group">
                         <input required name="username" type="text" class="form-control has-feedback-left"

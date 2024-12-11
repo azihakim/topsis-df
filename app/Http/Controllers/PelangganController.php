@@ -33,6 +33,8 @@ class PelangganController extends Controller
         $data = new Pelanggan();
         $data->nama = $request->nama;
         $data->no_hp = $request->no_hp;
+        $data->alamat = $request->alamat;
+        $data->email = $request->email;
         $data->save();
         return redirect()->route('pelanggan.index');
     }
@@ -62,6 +64,8 @@ class PelangganController extends Controller
         $data = Pelanggan::find($id);
         $data->nama = $request->nama;
         $data->no_hp = $request->no_hp;
+        $data->alamat = $request->alamat;
+        $data->email = $request->email;
         $data->save();
 
         return redirect()->route('pelanggan.index');

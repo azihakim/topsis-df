@@ -100,7 +100,7 @@
 		</tbody>
 	</table>
 
-	<!-- Section 2: Matriks Ternormalisasi -->
+	{{-- <!-- Section 2: Matriks Ternormalisasi -->
 	<div class="page-title">Matriks Ternormalisasi</div>
 	<table>
 		<thead>
@@ -220,7 +220,7 @@
 				</tr>
 			@endforeach
 		</tbody>
-	</table>
+	</table> --}}
 
 	<!-- Section 6: Nilai Preferensi -->
 	<div class="page-title">Nilai Preferensi</div>

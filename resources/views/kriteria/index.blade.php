@@ -37,7 +37,7 @@
 								<thead>
 									<tr>
 										<th>Kode</th>
-										<th>Nama</th>
+										<th>Kriteria</th>
 										<th>Bobot</th>
 										<th style="width: 20%">Aksi</th>
 									</tr>

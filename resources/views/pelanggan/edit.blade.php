@@ -33,6 +33,20 @@
                             right" aria-hidden="true"></span>
 					</div>
 				</div>
+				<div class="form-group row">
+					<div class="col-md-6 col-sm-6  form-group has-feedback">
+						<input value="{{ $data->alamat }}" name="alamat" type="text" class="form-control has-feedback-left"
+							id="inputSuccess2" placeholder="alamat">
+						<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+					</div>
+
+					<div class="col-md-6 col-sm-6  form-group has-feedback">
+						<input value="{{ $data->email }}" name="email" type="text" class="form-control" id="inputSuccess3"
+							placeholder="Email">
+						<span class="fa fa-user form-control-feedback
+                            right" aria-hidden="true"></span>
+					</div>
+				</div>
 				<div class="ln_solid"></div>
 				<div class="form-group row">
 					<div class="col-md-12 col-sm-12  offset-md-5">
