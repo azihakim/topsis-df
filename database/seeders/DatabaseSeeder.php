@@ -27,12 +27,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        // User::create([
-        //     'name' => 'Admin',
-        //     'role' => 'Admin',
-        //     'username' => 'admin',
-        //     'password' => Hash::make('123'),
-        // ]);
+        User::create([
+            'name' => 'Admin',
+            'role' => 'Admin',
+            'username' => 'admin',
+            'password' => Hash::make('123'),
+        ]);
 
         $pelanggan = [
             [

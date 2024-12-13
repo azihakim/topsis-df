@@ -25,22 +25,20 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('master');
 // });
-// Route::middleware('auth')->group(function () {
-Route::get('/penilaian', function () {
-    return view('penilaian.penilaian');
+Route::middleware('auth')->group(function () {
+ Route::get('/penilaian', function () {
+  return view('penilaian.penilaian');
+ });
+
+ Route::get('/', [DashboardController::class, 'index']);
+
+ Route::resource('dashboard', DashboardController::class);
+ Route::resource('karyawan', KaryawanController::class);
+ Route::resource('kriteria', KriteriaController::class);
+ Route::resource('subkriteria', SubKriteriaController::class);
+ Route::resource('penilaian', PenilaianController::class);
+ Route::get('penilaian/{divisi}/{tgl_penilaian}', [PenilaianController::class, 'show'])->name('penilaian.show');
 });
-
-Route::get('/', [DashboardController::class, 'index']);
-
-Route::resource('dashboard', DashboardController::class);
-Route::resource('karyawan', KaryawanController::class);
-Route::resource('kriteria', KriteriaController::class);
-Route::resource('subkriteria', SubKriteriaController::class);
-Route::resource('penilaian', PenilaianController::class);
-Route::get('penilaian/{divisi}/{tgl_penilaian}', [PenilaianController::class, 'show'])->name('penilaian.show');
-
-
-// });
 Route::get('/get-next-sub-kriteria/{kode_kriteria}', [SubKriteriaController::class, 'getNextSubKriteria']);
 
 Route::get('/pdf/{id}', [PenilaianController::class, 'generatePdf'])->name('pdf');
