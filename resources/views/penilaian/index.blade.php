@@ -20,7 +20,7 @@
 				<h2>Penilaian</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li>
-						@if (Auth::user()->role == 'admin')
+						@if (Auth::user()->role == 'Admin')
 							<a href="{{ route('penilaian.create') }}"
 								style="text-decoration: none; transition: color 0.3s; color: rgb(76, 75, 75);">
 								<i class="fa fa-plus"></i> Tambah
@@ -51,7 +51,7 @@
 											<td>
 												<a href="{{ route('pdf', $item->id) }}" target="blank" class="btn btn-block btn-outline-primary">Lihat
 													Hasil</a>
-												@if (Auth::user()->role == 'admin')
+												@if (Auth::user()->role == 'Admin')
 													<form action="{{ route('penilaian.destroy', $item->id) }}" method="POST" style="display:inline;">
 														@csrf
 														@method('DELETE')
