@@ -20,10 +20,12 @@
 				<h2>Penilaian</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li>
-						<a href="{{ route('penilaian.create') }}"
-							style="text-decoration: none; transition: color 0.3s; color: rgb(76, 75, 75);">
-							<i class="fa fa-plus"></i> Tambah
-						</a>
+						@if (Auth::user()->role == 'admin')
+							<a href="{{ route('penilaian.create') }}"
+								style="text-decoration: none; transition: color 0.3s; color: rgb(76, 75, 75);">
+								<i class="fa fa-plus"></i> Tambah
+							</a>
+						@endif
 					</li>
 				</ul>
 				<div class="clearfix"></div>
@@ -49,12 +51,14 @@
 											<td>
 												<a href="{{ route('pdf', $item->id) }}" target="blank" class="btn btn-block btn-outline-primary">Lihat
 													Hasil</a>
-												<form action="{{ route('penilaian.destroy', $item->id) }}" method="POST" style="display:inline;">
-													@csrf
-													@method('DELETE')
-													<button type="submit" class="btn btn-block btn-outline-danger"
-														onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?');">Hapus</button>
-												</form>
+												@if (Auth::user()->role == 'admin')
+													<form action="{{ route('penilaian.destroy', $item->id) }}" method="POST" style="display:inline;">
+														@csrf
+														@method('DELETE')
+														<button type="submit" class="btn btn-block btn-outline-danger"
+															onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?');">Hapus</button>
+													</form>
+												@endif
 											</td>
 										</tr>
 									@endforeach

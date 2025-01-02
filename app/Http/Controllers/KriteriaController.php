@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kriteria;
+use App\Models\Penilaiandb;
 use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
@@ -12,8 +13,18 @@ class KriteriaController extends Controller
      */
     public function index()
     {
-        $data = Kriteria::all();
-        return view('kriteria.index', compact('data'));
+        $datakriteria = Kriteria::all();
+        // Ambil data penilaian dari database
+        $penilaian = Penilaiandb::latest('data_penilaian')->first();
+
+        if ($penilaian) {
+            // Decode JSON menjadi array PHP
+            $data = json_decode($penilaian->data_penilaian, true);
+        } else {
+            $data = [];
+        }
+
+        return view('kriteria.index', compact('datakriteria', 'data'));
     }
 
     /**

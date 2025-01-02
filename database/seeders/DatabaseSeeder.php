@@ -33,6 +33,12 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('123'),
         ]);
+        User::create([
+            'name' => 'Direktur',
+            'role' => 'Direktur',
+            'username' => 'direktur',
+            'password' => Hash::make('123'),
+        ]);
 
         $pelanggan = [
             [

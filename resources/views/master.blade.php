@@ -85,23 +85,26 @@
 						<div class="menu_section">
 							<h3>Menu</h3>
 							<ul class="nav side-menu">
-								<li>
-									<a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i>Dashboard</a>
-								</li>
-								<li>
-									<a href="{{ route('pelanggan.index') }}"><i class="fa fa-users"></i>Pelanggan</a>
-								</li>
+								@if (Auth::user()->role == 'Admin')
+									<li>
+										<a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i>Dashboard</a>
+									</li>
+									<li>
+										<a href="{{ route('pelanggan.index') }}"><i class="fa fa-users"></i>Pelanggan</a>
+									</li>
+									<li>
+										<a href="{{ route('kriteria.index') }}">
+											<i class="fa fa-bar-chart"></i>Kriteria</a>
+									</li>
+									<li>
+										<a href="{{ route('subkriteria.index') }}">
+											<i class="fa fa-bar-chart"></i>Sub Kriteria</a>
+									</li>
+								@endif
+
 								<li>
 									<a href="{{ route('penilaian.index') }}">
 										<i class="fa fa-calculator"></i>Penilaian SPK</a>
-								</li>
-								<li>
-									<a href="{{ route('kriteria.index') }}">
-										<i class="fa fa-bar-chart"></i>Kriteria</a>
-								</li>
-								<li>
-									<a href="{{ route('subkriteria.index') }}">
-										<i class="fa fa-bar-chart"></i>Sub Kriteria</a>
 								</li>
 							</ul>
 
@@ -164,20 +167,17 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
 									data-toggle="dropdown" aria-expanded="false">
-									{{-- <i class="fa fa-user"></i> <span>{{ Auth::user()->name }} -
-										{{ Auth::user()->role }}</span> --}}
+									<i class="fa fa-user"></i> <span>{{ Auth::user()->name }} -
+										{{ Auth::user()->role }}</span>
 								</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-									{{-- <a class="dropdown-item" href="login.html"><i
-                                            class="fa fa-sign-out pull-right"></i>
-                                        Log Out</a> --}}
-									{{-- <form method="POST" action="{{ route('logout') }}">
+									<form method="POST" action="{{ route('logout') }}">
 										@csrf
 
 										<a href="#" class="dropdown-item" onclick="event.preventDefault(); this.closest('form').submit();">
 											<i class="fa fa-sign-out pull-right"></i> Log Out
 										</a>
-									</form> --}}
+									</form>
 								</div>
 
 
