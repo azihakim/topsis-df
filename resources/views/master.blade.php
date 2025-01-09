@@ -56,9 +56,8 @@
 					<div class="navbar nav_title" style="border: 0;">
 
 						<a href="#" class="site_title">
-							{{-- <img src="{{ asset('vendors/build/images/logo.png') }}" class="profile_pic" style="width: 50px"> --}}
-							<i class="fa fa-gear"></i>
-							<span>&nbsp;SPK</span>
+							<img src="{{ asset('vendors/img/logo.png') }}" class="profile_pic" style="width: 50px">
+							<span style="font-size: 12px">&nbsp;PT. SRIWIJAYA GAS INDUSTRI</span>
 						</a>
 						{{-- <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella
                                 Alela!</span></a> --}}

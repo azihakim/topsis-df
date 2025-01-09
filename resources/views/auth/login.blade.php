@@ -52,9 +52,9 @@
 					<form action="{{ route('login') }}" method="post">
 						@csrf
 						<div class="text-center">
-							{{-- <img src="{{ asset('vendors/build/images/logo.png') }}" style="width: 150px"> --}}
+							<img src="{{ asset('vendors/img/logo.png') }}" style="width: 150px">
 						</div>
-						<h1>Login Form</h1>
+						<h1>PT. SRIWIJAYA GAS INDUSTRI</h1>
 						<div>
 							<input name="username" type="text" class="form-control" placeholder="username" required="" />
 						</div>

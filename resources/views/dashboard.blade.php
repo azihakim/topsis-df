@@ -53,63 +53,37 @@
 					<div class="col-sm-12">
 						<div class="card-box table-responsive">
 							<div class="text-center">
-								{{-- <img src="{{ asset('vendors/build/images/logo.png') }}" style="width: 150px"> --}}
-								{{-- <h1>Selamat Datang</h1> --}}
 								<h1>Sistem Pendukung Keputusan</h1>
-								{{-- <h2>Promosi Jabatan</h2> --}}
+								<img src="{{ asset('vendors/img/logo.png') }}" style="width: 150px">
+								<div class="row justify-content-center" style="text-align: center">
+									<div class="col-md-12">
+										<div class="card border-0">
+											<div class="card-body">
+												<h2> VISI </h2>
+												<div class="d-flex justify-content-center">
+													<h4>“VISI PERUSAHAAN YAITU MEMBUAT PERUSAHAAN SELALU BERKEMBANG DAN MEMBERIKAN
+														PELAYANAN YANG TERBAIK SERTA MENYEDIAKAN PRODUK BERKUALITAS DENGAN HARGA TERBAIK” </h4>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row justify-content-center" style="text-align: center">
+									<div class="col-md-12">
+										<div class="card border-0">
+											<div class="card-body">
+												<h2> MISI </h2>
+												<div class="d-flex justify-content-center">
+													<h4>“MISI MENCAPAI PERTUMBUHAN YANG BERKELANJUTAN DENGAN KINERJA UNGGUL, MENGHASILKAN LAYANAN BERKUALITAS
+														DAN NILAI TAMBAH YANG MAKSIMAL KEPADA KONSUMEN SERTA PEMANGKU KEPENTINGAN MELALUI PRODUK-PRODUK INOVATIF
+														DAN SOLUSI YANG EFEKTIF” </h4>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<hr>
-								{{-- <h2>Kriteria Penilaian dan Indikator Penilaian Karyawan</h2> --}}
 							</div>
-							{{-- <div class="row">
-								<div class="col-6">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>Kriteria</th>
-												<th>Sub Kriteria</th>
-											</tr>
-										</thead>
-										<tbody>
-											@foreach ($data as $item)
-												<tr>
-													<td>{{ $item->nama }}</td>
-													<td>
-														<ul>
-															@foreach ($item->subKriterias as $sub)
-																<li>{{ $sub->nama }}</li>
-															@endforeach
-														</ul>
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-								<div class="col-6">
-									<table class="formula-table">
-										<tr>
-											<th colspan="2">Rumus</th>
-										</tr>
-										<tr>
-											<td colspan="2">Nilai sub Kriteria 1 = Nilai Kehadiran × Bobot Sub 1</td>
-										</tr>
-										<tr>
-											<td colspan="2">Nilai sub Kriteria 2 = Nilai Kehadiran × Bobot Sub 2</td>
-										</tr>
-										<tr>
-											<td colspan="2">Nilai sub Kriteria 3 = Nilai Kehadiran × Bobot Sub 3</td>
-										</tr>
-										<tr>
-											<td colspan="2">Nilai Akhir Kriteria = Nilai sub Kriteria 1 + Nilai sub
-												Kriteria 2 + Skor Sub Kriteria 3</td>
-										</tr>
-										<tr>
-											<td colspan="2">Nilai Karyawan = <br> (Nilai Akhir Kriteria × Bobot Utama) /
-												Jumlah Sub Kriteria</td>
-										</tr>
-									</table>
-								</div>
-							</div> --}}
 						</div>
 					</div>
 				</div>

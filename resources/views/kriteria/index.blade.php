@@ -30,7 +30,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				@if ($data)
+				{{-- @if ($data)
 					<div class="row">
 						<br>
 						<!-- Section 1: Penilaian Data -->
@@ -204,7 +204,7 @@
 							</tbody>
 						</table>
 					</div>
-				@endif
+				@endif --}}
 
 				<div class="row">
 					<h2>Kriteria</h2>
@@ -256,7 +256,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12 col-sm-12">
+	{{-- <div class="col-md-12 col-sm-12">
 		<div class="col-sm-6">
 			<div class="x_panel">
 				<div class="x_title">
@@ -453,5 +453,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 @endsection
